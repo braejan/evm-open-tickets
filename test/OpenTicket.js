@@ -1,6 +1,5 @@
 const{ expect } = require("chai");
 const{ ethers } = require("hardhat");
-const TICKET = 0;
 const NORMAL_TICKET = 0;
 const VIP_TICKET = 1;
 const PREMIUM_TICKET = 2;
@@ -21,8 +20,7 @@ describe("Open Tickets Tests", function() {
     it("Should be in zero values for all ID", async function() {
         //Given: a OpenTicket contract that is just deployed
         //When: check allowed tickets
-        //Then: 
-        //  expect allowed tickets zero values
+        //Then: expect allowed tickets zero values
         const [price1, price2, price3] = await Promise.all(
             [
                 openTicketContract.ticketPrice(ethers.BigNumber.from(NORMAL_TICKET)),
@@ -53,5 +51,14 @@ describe("Open Tickets Tests", function() {
         expect(25000000000000000n).to.be.equal(price1);
         expect(40000000000000000n).to.be.equal(price2);
         expect(75000000000000000n).to.be.equal(price3);
+    });
+
+    it("Should throw error", async function() {
+        //Given: a OpenTicket ID initialized
+        //When: try to minted again
+        //Then: should throw new error
+        await expect(
+           openTicketContract.mintTickets(NORMAL_TICKET, 1500, 25000000000000000n)
+        ).to.be.revertedWith('you already minted tickets for this ID');
     });
 });

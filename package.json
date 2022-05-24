@@ -12,7 +12,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/braejan/evm-open-tickets/issues"
   },
@@ -27,6 +27,6 @@
     "hardhat": "^2.9.5"
   },
   "dependencies": {
-    "@openzeppelin/contracts-upgradeable": "^4.6.0"
+    "@openzeppelin/contracts": "^4.6.0"
   }
 }
