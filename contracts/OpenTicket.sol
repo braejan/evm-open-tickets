@@ -18,7 +18,7 @@ contract OpenTicket is ERC1155, Ownable {
         uint256 ID,
         uint256 supply,
         uint256 price
-    ) public notInit(ID) onlyOwner {
+    ) public onlyOwner notInit(ID) {
         TICKETS_SUPPLY[ID] = supply;
         TICKETS_PRICE[ID] = price;
         _mint(msg.sender, ID, supply, "0x000");
@@ -43,7 +43,7 @@ contract OpenTicket is ERC1155, Ownable {
         TICKETS_SUPPLY[ID] =  TICKETS_SUPPLY[ID] - amount;
     }
 
-    function withdraw() public hasBalance onlyOwner {
+    function withdraw() public onlyOwner hasBalance {
         payable(owner()).transfer(address(this).balance);
     }
 
