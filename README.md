@@ -8,13 +8,18 @@
 
 ### Running tests
  * Be sure you have [npm](https://www.npmjs.com/package/npm) installed.
- * Under project folder run next:
 
+#### Run tests
 ```console
 $ npm install --save-dev
-$ npm hardhat test
+$ npx hardhat test
+```
+#### Run tests with coverage
+```console
+$ npm install --save-dev
+$ npx hardhat coverage --testfiles "tests/*.test.js"
 ```
 
 ## License
 
-OpenTickets for ethereum virtual machine is released under the [GLP-3.0](LICENSE).
+OpenTickets for ethereum virtual machine is released under the [GLP-3.0](LICENSE) License.
