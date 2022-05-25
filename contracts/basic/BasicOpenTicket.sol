@@ -4,8 +4,15 @@ pragma solidity ^0.8.14;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "../interfaces/IBasicOpenTicket.sol";
 
-contract OpenTicket is ERC1155, Ownable {
+/**
+ * @title OpenTicket
+ * @author https://github.com/braejan
+ * @dev Contract implementation of a basic OpenTicket
+ * _Since v1.0.0_
+ */
+contract BasicOpenTicket is IBasicOpenTicket, ERC1155, Ownable {
     uint256[] public ALLOWED_TICKETS= [NORMAL_TICKET, VIP_TICKET, PREMIUM_TICKET];
     uint256 NORMAL_TICKET = 0;
     uint256 VIP_TICKET = 1;
@@ -18,15 +25,16 @@ contract OpenTicket is ERC1155, Ownable {
         uint256 ID,
         uint256 supply,
         uint256 price
-    ) public onlyOwner notInit(ID) {
+    ) external override onlyOwner notInit(ID) {
         TICKETS_SUPPLY[ID] = supply;
         TICKETS_PRICE[ID] = price;
         _mint(msg.sender, ID, supply, "0x000");
     }
 
     function ticketPrice(uint256 ID)
-        public
+        external
         view
+        override
         notAllowedID(ID)
         returns(uint256)
     {
@@ -34,8 +42,9 @@ contract OpenTicket is ERC1155, Ownable {
     }
 
     function ticketSupply(uint256 ID)
-        public
+        external
         view
+        override
         notAllowedID(ID)
         returns(uint256)
     {
@@ -43,8 +52,9 @@ contract OpenTicket is ERC1155, Ownable {
     }
 
     function buyTicket(uint256 ID, uint256 amount) 
-       public
+       external
        payable
+       override
        notEnoughSupply(ID, amount)
        notEnoughEthers(ID, amount)
     {
@@ -52,7 +62,7 @@ contract OpenTicket is ERC1155, Ownable {
         TICKETS_SUPPLY[ID] =  TICKETS_SUPPLY[ID] - amount;
     }
 
-    function withdraw() public onlyOwner hasBalance {
+    function withdraw() external override onlyOwner hasBalance {
         payable(owner()).transfer(address(this).balance);
     }
 
