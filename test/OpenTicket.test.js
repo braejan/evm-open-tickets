@@ -45,6 +45,15 @@ describe("Open Tickets tests: Deploy and Mint", function() {
         expect(25000000000000000n).to.be.equal(price1);
         expect(40000000000000000n).to.be.equal(price2);
         expect(75000000000000000n).to.be.equal(price3);
+
+        const [amount1, amount2, amount3] = await Promise.all([
+            openTicketContract.ticketSupply(NORMAL_TICKET),
+            openTicketContract.ticketSupply(VIP_TICKET),
+            openTicketContract.ticketSupply(PREMIUM_TICKET)
+        ]);
+        expect(1500).to.be.equal(amount1);
+        expect(500).to.be.equal(amount2);
+        expect(50).to.be.equal(amount3);
     });
 
     it("Should throw 'you already minted tickets for this ID'", async function() {

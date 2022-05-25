@@ -33,11 +33,20 @@ contract OpenTicket is ERC1155, Ownable {
      return TICKETS_PRICE[ID];   
     }
 
+    function ticketSupply(uint256 ID)
+        public
+        view
+        notAllowedID(ID)
+        returns(uint256)
+    {
+        return TICKETS_SUPPLY[ID];   
+    }
+
     function buyTicket(uint256 ID, uint256 amount) 
        public
        payable
-       notEnoughEthers(ID, amount)
        notEnoughSupply(ID, amount)
+       notEnoughEthers(ID, amount)
     {
         _safeTransferFrom(address(owner()), msg.sender, ID, amount, "0x00");
         TICKETS_SUPPLY[ID] =  TICKETS_SUPPLY[ID] - amount;
@@ -60,7 +69,7 @@ contract OpenTicket is ERC1155, Ownable {
 
     modifier notEnoughEthers(uint256 ID, uint256 amount) {
         require(isAllowedID(ID), "ID not allowed");
-        require(msg.value >= amount * TICKETS_PRICE[ID]);
+        require(msg.value >= amount * TICKETS_PRICE[ID], "not enough balance to buy this amount");
         _;
     }
 
