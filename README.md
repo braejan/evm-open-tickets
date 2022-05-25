@@ -14,3 +14,7 @@
 $ npm install --save-dev
 $ npm hardhat test
 ```
+
+## License
+
+OpenTickets for ethereum virtual machine is released under the [GLP-3.0](LICENSE).

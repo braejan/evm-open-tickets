@@ -13,7 +13,7 @@ describe("Open Tickets tests: Buy and Transfer tickets", function() {
     before(async function() {
         availableSigners = await ethers.getSigners();
         deployer = availableSigners[0];
-        OpenTicket = await ethers.getContractFactory("OpenTicket");
+        OpenTicket = await ethers.getContractFactory("BasicOpenTicket");
         openTicketContract = await OpenTicket.deploy(uri_);
         await openTicketContract.deployed();
         await Promise.all([
