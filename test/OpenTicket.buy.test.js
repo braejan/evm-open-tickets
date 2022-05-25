@@ -106,10 +106,11 @@ describe("Open Tickets tests: Buy and Transfer tickets", function() {
     })
 
     it("Should owner can withdraw all so far", async function() {
+        const valueOwnerBefore = await openTicketContract.provider.getBalance(deployer.address);
         await openTicketContract.withdraw();
-        let value = await openTicketContract.provider.getBalance(openTicketContract.address);
-        expect(0).to.be.equal(value);
-        value = await openTicketContract.provider.getBalance(deployer.address);
-        expect(ethers.utils.parseEther("0.325")).to.be.equal(value); 
+        const valueContract = await openTicketContract.provider.getBalance(openTicketContract.address);
+        expect(0).to.be.equal(valueContract);
+        const valueOwnerNow = await openTicketContract.provider.getBalance(deployer.address);
+        expect(valueOwnerNow.gt(valueOwnerBefore)).to.be.true;
     })
 });

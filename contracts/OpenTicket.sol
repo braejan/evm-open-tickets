@@ -18,14 +18,14 @@ contract OpenTicket is ERC1155, Ownable {
         uint256 ID,
         uint256 supply,
         uint256 price
-    ) public onlyOwner notInit(ID) {
+    ) external onlyOwner notInit(ID) {
         TICKETS_SUPPLY[ID] = supply;
         TICKETS_PRICE[ID] = price;
         _mint(msg.sender, ID, supply, "0x000");
     }
 
     function ticketPrice(uint256 ID)
-        public
+        external
         view
         notAllowedID(ID)
         returns(uint256)
@@ -34,7 +34,7 @@ contract OpenTicket is ERC1155, Ownable {
     }
 
     function ticketSupply(uint256 ID)
-        public
+        external
         view
         notAllowedID(ID)
         returns(uint256)
@@ -43,7 +43,7 @@ contract OpenTicket is ERC1155, Ownable {
     }
 
     function buyTicket(uint256 ID, uint256 amount) 
-       public
+       external
        payable
        notEnoughSupply(ID, amount)
        notEnoughEthers(ID, amount)
@@ -52,7 +52,7 @@ contract OpenTicket is ERC1155, Ownable {
         TICKETS_SUPPLY[ID] =  TICKETS_SUPPLY[ID] - amount;
     }
 
-    function withdraw() public onlyOwner hasBalance {
+    function withdraw() external onlyOwner hasBalance {
         payable(owner()).transfer(address(this).balance);
     }
 
