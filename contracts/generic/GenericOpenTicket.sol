@@ -92,7 +92,6 @@ contract GenericOpenTicket is IGenericOpenTicket, Ownable, ERC1155 {
     )
         external
         override
-        onlyOwner
         validateEnoughTicktes(ID, amount)
     {
         require(events[ID].refundAvailable, "Not refunds available for this Ticket");
@@ -110,7 +109,8 @@ contract GenericOpenTicket is IGenericOpenTicket, Ownable, ERC1155 {
         external
         override
         onlyOwner
-        hasEnoughBalance(amount) {
+        hasEnoughBalance(amount)
+    {
         bool sent = payable(owner()).send(address(this).balance);
         require(sent, "withdraw transaction finish with error");
     }
@@ -125,23 +125,23 @@ contract GenericOpenTicket is IGenericOpenTicket, Ownable, ERC1155 {
     }
 
     modifier validateEnoughEthers(uint256 ID, uint256 amount) {
-        require(existsID(ID), "ID not allowed");
-        require(amount > 0, "Zero amount not allowed.");
+        require(existsID(ID), "There is not event for that Ticket.");
+        require(msg.value > 0, "Zero value not allowed.");
         require(msg.value >= amount * events[ID].price, "Not enough balance to buy this amount");
         _;
     }
 
     modifier validateEnoughSupply(uint256 ID, uint256 amount) {
-        require(existsID(ID), "ID not allowed");
+        require(existsID(ID), "There is not event for that Ticket.");
         require(amount > 0, "Zero amount not allowed.");
-        require(events[ID].supply >= amount, "Not enough supply for sent Ticket");
+        require(events[ID].supply >= amount, "Not enough supply for this Ticket.");
         _;
     }
 
     modifier validateEnoughTicktes(uint256 ID, uint256 amount) {
-        require(existsID(ID), "ID not allowed");
+        require(existsID(ID), "There is not event for that Ticket.");
         require(amount > 0, "Zero amount not allowed.");
-        require(balanceOf(msg.sender, ID) >= amount, "Address doesn't have enough ticktes");
+        require(balanceOf(msg.sender, ID) >= amount, "Address doesn't have enough ticktes.");
         _;
     }
 
@@ -151,12 +151,12 @@ contract GenericOpenTicket is IGenericOpenTicket, Ownable, ERC1155 {
     }
 
     modifier hasBalance {
-        require(address(this).balance > 0, "not enough balance. balance is 0");
+        require(address(this).balance > 0, "Not enough balance to withdraw. balance is 0.");
         _;
     }
 
     modifier hasEnoughBalance(uint256 amount) {
-        require(address(this).balance > amount, "not enough balance.");
+        require(address(this).balance > amount, "Not enough balance to withdraw.");
         _;
     }
 

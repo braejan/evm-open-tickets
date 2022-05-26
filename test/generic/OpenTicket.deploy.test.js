@@ -1,8 +1,5 @@
 const{ expect } = require("chai");
 const{ ethers } = require("hardhat");
-const NORMAL_TICKET = 0;
-const VIP_TICKET = 1;
-const PREMIUM_TICKET = 2;
 describe("Generic Open Tickets tests: Deploy and Mint", function() {
 let availableSigners;
     let deployer;
