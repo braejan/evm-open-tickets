@@ -1,7 +1,10 @@
 
-**A Smart contract based on Ethereum Virtual Machine** for easy create custom events and sell tickets for 3 differents categories.
+## Open Ticket
 
- * 3 kinds of tickets: Normal, VIP and Premium with the OpenZeppelin [ERC1155](https://docs.openzeppelin.com/contracts/3.x/erc1155) token implementation.
+**A Smart contract based on Ethereum Virtual Machine** for easy create custom events and sell tickets totally configurable.
+ * You can create you own custom Smart Contract with tickets for admission to any event easy and faster making use GenericOpenTicket or making your own implementation of IGenericOpenTicket.
+ * You can choise a BasicOpenTicket with 3 differents tickets types.
+ * All tickets created has compliant with OpenZeppelin [ERC1155](https://docs.openzeppelin.com/contracts/3.x/erc1155) token implementation.
  * Ownable OpenZeppelin implementation [ownership and ownable](https://docs.openzeppelin.com/contracts/4.x/access-control#ownership-and-ownable) scheme.
 
  ## Overview
