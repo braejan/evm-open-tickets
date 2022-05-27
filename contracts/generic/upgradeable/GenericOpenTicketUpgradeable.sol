@@ -2,21 +2,31 @@
 
 pragma solidity ^0.8.14;
 
-import "../interfaces/IGenericOpenTicket.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import "../../interfaces/IGenericOpenTicketUpgradeable.sol";
 
 /**
- * @title GenericOpenTicket
+ * @title GenericOpenTicketUpgradeable
  * @author https://github.com/braejan
- * @dev Contract implementation of a custom OpenTicket
+ * @dev Contract implementation of a custom OpenTicket upgradeable
  * _Since v1.0.0_
  */
-contract GenericOpenTicket is IGenericOpenTicket, Ownable, ERC1155 {
+contract GenericOpenTicketUpgradeable is
+    IGenericOpenTicketUpgradeable,
+    OwnableUpgradeable,
+    ERC1155Upgradeable,
+    UUPSUpgradeable
+{
     uint256 index = 0;
-    mapping(uint256 => IGenericOpenTicket.eventInfo) public events;
+    mapping(uint256 => IGenericOpenTicketUpgradeable.eventInfo) public events;
 
-    constructor(string memory uri_) ERC1155(uri_) {}
+    function initialize(string memory uri_) external initializer {
+        __ERC1155_init(uri_);
+        __Ownable_init_unchained();
+        __UUPSUpgradeable_init();
+    }
 
     function mintNewTicket(
         uint256 supply,
@@ -99,6 +109,9 @@ contract GenericOpenTicket is IGenericOpenTicket, Ownable, ERC1155 {
         bool sent = payable(msg.sender).send(valueToSend);
         require(sent, "Refund transaction finish with error.");
     }
+
+    //UUPS override implementation
+    function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}
 
     function withdrawAll() external override onlyOwner hasBalance {
         bool sent = payable(owner()).send(address(this).balance);
