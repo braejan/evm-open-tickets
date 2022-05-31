@@ -4,7 +4,7 @@
   "description": "Open EVM smart contract to create a simple event and sell tickets.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "hardhat test"
   },
   "repository": {
     "type": "git",
