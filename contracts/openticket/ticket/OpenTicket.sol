@@ -29,7 +29,7 @@ contract OpenTicket is
         __Ownable_init();
         __UUPSUpgradeable_init();
     }
-    function _authorizeUpgrade(address newImplementation) override internal onlyOwner {}
+    function _authorizeUpgrade(address newImplementation) override internal view onlyOwner {}
 
     function create(string memory uri_, uint256 expiresOn) override external onlyOwner {
         events[eventCounter] = OpenTicketModel.NewAdmissionEvent(uri_, expiresOn);

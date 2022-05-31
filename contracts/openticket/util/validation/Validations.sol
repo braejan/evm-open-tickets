@@ -12,6 +12,7 @@ library Validations {
         OpenTicketModel.AdmissionEvent memory admissionEvent
     )
         internal
+        pure
         validEvent(admissionEvent)
     {}
 
@@ -20,6 +21,7 @@ library Validations {
         OpenTicketModel.OpenTicket memory ticket
     )
         internal
+        pure
         validEvent(admissionEvent)
         validTicket(ticket)
     {}
@@ -37,6 +39,7 @@ library Validations {
         address account
     )
         internal
+        view
         hasBalance(account)
     {}
 
