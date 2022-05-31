@@ -28,7 +28,7 @@ describe("Upgradeable Open Ticket tests: Security", function() {
         expect(eventCreated[2]).to.be.true;
     });
 
-    it("Should supply 1 kind of tickets", async function() {
+    it("Should supply first kind of tickets", async function() {
        const eventID = 0;
        const ticketID = 0;
        const totalSupply = ethers.BigNumber.from(10);
@@ -48,5 +48,25 @@ describe("Upgradeable Open Ticket tests: Security", function() {
         const totalNotOwner = await proxy.connect(notOwner).balanceOf(deployer.address, ticketID);
         expect(expectedBalance).to.be.equal(totalOwner);
         expect(expectedBalance).to.be.equal(totalNotOwner);
+     })
+
+     it("Should supply second kind of tickets", async function() {
+        const eventID = 0;
+        const ticketID = 1;
+        const totalSupply = ethers.BigNumber.from(8);
+        const unitPrice = ethers.utils.parseEther("0.0055");
+        await expect(proxy.supply(eventID, totalSupply, unitPrice)).not.to.be.reverted;
+        const totalOwner = await proxy.balanceOf(deployer.address, ticketID);
+        expect(totalSupply).to.be.equal(totalOwner);
+     })
+
+     it("Should supply third kind of tickets", async function() {
+        const eventID = 0;
+        const ticketID = 2;
+        const totalSupply = ethers.BigNumber.from(4);
+        const unitPrice = ethers.utils.parseEther("0.006");
+        await expect(proxy.supply(eventID, totalSupply, unitPrice)).not.to.be.reverted;
+        const totalOwner = await proxy.balanceOf(deployer.address, ticketID);
+        expect(totalSupply).to.be.equal(totalOwner);
      })
 });
