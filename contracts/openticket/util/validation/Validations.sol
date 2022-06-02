@@ -5,51 +5,34 @@ pragma solidity ^0.8.14;
 import "../../model/OpenTicketModel.sol";
 
 library Validations {
-
-    
-
-    function isValid(
-        OpenTicketModel.AdmissionEvent memory admissionEvent
-    )
+    function isValid(OpenTicketModel.AdmissionEvent memory admissionEvent)
         internal
         pure
         validEvent(admissionEvent)
     {}
 
-    function isValidTicket(
-        OpenTicketModel.AdmissionEvent memory admissionEvent,
-        OpenTicketModel.OpenTicket memory ticket
-    )
+    function canBuy(OpenTicketModel.OpenTicket memory ticket, uint256 amount)
         internal
-        pure
-        validEvent(admissionEvent)
         validTicket(ticket)
+        hasEnoughMoney(ticket, amount)
+        hasEnoughSupply(ticket, amount)
     {}
 
-    function canBuy(
-        OpenTicketModel.OpenTicket memory ticket,
-        uint256 amount
-    )
-        internal
-        hasEnoughMoney(ticket,amount)
-        hasEnoughSupply(ticket,amount)
-    {}
-
-    function canWithdraw(
-        address account
-    )
-        internal
-        view
-        hasBalance(account)
-    {}
+    function canWithdraw(address account) internal view hasBalance(account) {}
 
     modifier validTicket(OpenTicketModel.OpenTicket memory ticket) {
         require(ticket.minted, "OT: ticket not minted");
         _;
     }
 
-    modifier hasEnoughMoney(OpenTicketModel.OpenTicket memory ticket, uint256 amount) {
-        require(msg.value >= (ticket.unitPrice * amount), "OT: not enough money");
+    modifier hasEnoughMoney(
+        OpenTicketModel.OpenTicket memory ticket,
+        uint256 amount
+    ) {
+        require(
+            msg.value >= (ticket.unitPrice * amount),
+            "OT: not enough money"
+        );
         _;
     }
 
@@ -58,7 +41,10 @@ library Validations {
         _;
     }
 
-    modifier hasEnoughSupply(OpenTicketModel.OpenTicket memory ticket, uint amount) {
+    modifier hasEnoughSupply(
+        OpenTicketModel.OpenTicket memory ticket,
+        uint256 amount
+    ) {
         require(amount <= ticket.supply, "OT: not enough supply");
         _;
     }

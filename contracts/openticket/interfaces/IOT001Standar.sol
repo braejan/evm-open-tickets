@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
 
-
 pragma solidity ^0.8.14;
 
 import "../model/OpenTicketModel.sol";
@@ -20,7 +19,7 @@ interface IOT001Standar is IERC1155Upgradeable {
      * @param expiresOn Unix date on wich the admission event expires.
      */
     function create(string memory uri_, uint256 expiresOn) external;
-    
+
     /**
      * @dev supply Allows to create a tickets supply specific event
      *      already created.
@@ -28,7 +27,11 @@ interface IOT001Standar is IERC1155Upgradeable {
      * @param total Total tickets supply of kind of ticket.
      * @param price Unit ticket price.
      */
-    function supply(uint256 ID, uint256 total, uint256 price) external;
+    function supply(
+        uint256 ID,
+        uint256 total,
+        uint256 price
+    ) external;
 
     /**
      * @dev buy Allows to buy for specific admission event tickets.
@@ -36,7 +39,11 @@ interface IOT001Standar is IERC1155Upgradeable {
      * @param ticketID OpenTicket ID identifier.
      * @param amount Unit amount to buy.
      */
-    function buy(uint256 eventID, uint256 ticketID, uint256 amount) external payable;
+    function buy(
+        uint256 eventID,
+        uint256 ticketID,
+        uint256 amount
+    ) external payable;
 
     /**
      * @dev withdraw Allows withdraw all balance.
