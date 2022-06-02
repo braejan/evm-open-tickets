@@ -46,7 +46,25 @@ interface IOT001Standar is IERC1155Upgradeable {
     ) external payable;
 
     /**
+     * @dev Emmited when a ticket is bought
+     */
+    event ticketBought(
+        address user,
+        uint256 eventID,
+        uint256 ticketID,
+        uint256 amount
+    );
+
+    /**
      * @dev withdraw Allows withdraw all balance.
      */
     function withdraw() external payable;
+
+    /**
+     * @dev Emmited when owner withdraw from contract.
+     */
+    event withdrawSuccessful(
+        address destination,
+        uint256 value
+    );
 }
