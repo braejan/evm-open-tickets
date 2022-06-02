@@ -9,7 +9,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-contract OpenTicket is 
+contract OpenTicket is
     ERC1155Upgradeable,
     IOT001Standar,
     OwnableUpgradeable,
@@ -17,7 +17,8 @@ contract OpenTicket is
 {
     uint256 private eventCounter;
     uint256 private ticketCounter;
-    mapping(uint256 => mapping(uint256 => OpenTicketModel.OpenTicket)) private allTickets;
+    mapping(uint256 => mapping(uint256 => OpenTicketModel.OpenTicket))
+        private allTickets;
     mapping(uint256 => OpenTicketModel.AdmissionEvent) public events;
 
     using Validations for OpenTicketModel.AdmissionEvent;
@@ -29,32 +30,64 @@ contract OpenTicket is
         __Ownable_init();
         __UUPSUpgradeable_init();
     }
-    function _authorizeUpgrade(address newImplementation) override internal view onlyOwner {}
 
-    function create(string memory uri_, uint256 expiresOn) override external onlyOwner {
-        events[eventCounter] = OpenTicketModel.NewAdmissionEvent(uri_, expiresOn);
+    function _authorizeUpgrade(address newImplementation)
+        internal
+        view
+        override
+        onlyOwner
+    {}
+
+    function create(string memory uri_, uint256 expiresOn)
+        external
+        override
+        onlyOwner
+    {
+        events[eventCounter] = OpenTicketModel.NewAdmissionEvent(
+            uri_,
+            expiresOn
+        );
         //TODO: emit event created
         eventCounter++;
     }
 
-    function supply(uint256 ID, uint256 total, uint256 price)
-        override external onlyOwner 
-    {
+    function supply(
+        uint256 ID,
+        uint256 total,
+        uint256 price
+    ) external override onlyOwner {
         events[ID].isValid();
         _mint(msg.sender, ticketCounter, total, "0x00");
-        allTickets[ID][ticketCounter] = OpenTicketModel.NewOpenTicket(total, price);
+        allTickets[ID][ticketCounter] = OpenTicketModel.NewOpenTicket(
+            total,
+            price
+        );
         //TODO: emit supply ticket created
-        ticketCounter++; 
+        ticketCounter++;
     }
 
-    function buy(uint256 eventID, uint256 ticketID, uint256 amount) override external payable {
+    function buy(
+        uint256 eventID,
+        uint256 ticketID,
+        uint256 amount
+    ) external payable override {
         events[eventID].isValid();
         allTickets[eventID][ticketID].canBuy(amount);
-        _safeTransferFrom(address(owner()), msg.sender, ticketID, amount, "0x00");
-        allTickets[eventID][ticketID].supply = allTickets[eventID][ticketID].supply - amount;
+        _safeTransferFrom(
+            address(owner()),
+            msg.sender,
+            ticketID,
+            amount,
+            "0x00"
+        );
+        allTickets[eventID][ticketID].supply =
+            allTickets[eventID][ticketID].supply -
+            amount;
     }
 
-    function withdraw() override external payable onlyOwner{
+    function withdraw() external payable override onlyOwner {
         address(this).canWithdraw();
+        bool sent = payable(owner()).send(address(this).balance);
+        require(sent, "OT: withdraw error");
     }
 }
