@@ -11,11 +11,6 @@ library Validations {
         validEvent(admissionEvent)
     {}
 
-    function isValidTicket(
-        OpenTicketModel.AdmissionEvent memory admissionEvent,
-        OpenTicketModel.OpenTicket memory ticket
-    ) internal pure validEvent(admissionEvent) validTicket(ticket) {}
-
     function canBuy(OpenTicketModel.OpenTicket memory ticket, uint256 amount)
         internal
         validTicket(ticket)
