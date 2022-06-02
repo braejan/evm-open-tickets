@@ -31,6 +31,7 @@ library Validations {
         uint256 amount
     )
         internal
+        validTicket(ticket)
         hasEnoughMoney(ticket,amount)
         hasEnoughSupply(ticket,amount)
     {}
