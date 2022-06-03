@@ -21,6 +21,14 @@ interface IOT001Standar is IERC1155Upgradeable {
     function create(string memory uri_, uint256 expiresOn) external;
 
     /**
+     * @dev Emmited when owner create a new admission event.
+     */
+    event eventCreated(
+        address creator,
+        uint256 eventID
+    );
+
+    /**
      * @dev supply Allows to create a tickets supply specific event
      *      already created.
      * @param ID Admission Event Identifier.
@@ -32,6 +40,17 @@ interface IOT001Standar is IERC1155Upgradeable {
         uint256 total,
         uint256 price
     ) external;
+
+    /**
+     * @dev Emmited when owner supply new tickets for an admission event ID.
+     */
+    event eventTicketSupplied(
+        address creator,
+        uint256 eventID,
+        uint256 ticketID,
+        uint256 supply,
+        uint256 price
+    );
 
     /**
      * @dev buy Allows to buy for specific admission event tickets.

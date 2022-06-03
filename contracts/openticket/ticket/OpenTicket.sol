@@ -47,7 +47,7 @@ contract OpenTicket is
             uri_,
             expiresOn
         );
-        //TODO: emit event created
+        emit eventCreated(msg.sender, eventCounter);
         eventCounter++;
     }
 
@@ -62,7 +62,7 @@ contract OpenTicket is
             total,
             price
         );
-        //TODO: emit supply ticket created
+        emit eventTicketSupplied(msg.sender, ID, ticketCounter, total, price);
         ticketCounter++;
     }
 
