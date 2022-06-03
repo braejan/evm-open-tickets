@@ -47,7 +47,7 @@ contract OpenTicket is
             uri_,
             expiresOn
         );
-        //TODO: emit event created
+        emit eventCreated(msg.sender, eventCounter);
         eventCounter++;
     }
 
@@ -62,7 +62,7 @@ contract OpenTicket is
             total,
             price
         );
-        //TODO: emit supply ticket created
+        emit eventTicketSupplied(msg.sender, ID, ticketCounter, total, price);
         ticketCounter++;
     }
 
@@ -83,11 +83,14 @@ contract OpenTicket is
         allTickets[eventID][ticketID].supply =
             allTickets[eventID][ticketID].supply -
             amount;
+        emit ticketBought(msg.sender, eventID, ticketID, amount);
     }
 
     function withdraw() external payable override onlyOwner {
         address(this).canWithdraw();
-        bool sent = payable(owner()).send(address(this).balance);
+        uint256 total = address(this).balance;
+        bool sent = payable(owner()).send(total);
         require(sent, "OT: withdraw error");
+        emit withdrawSuccessful(owner(), total);
     }
 }
