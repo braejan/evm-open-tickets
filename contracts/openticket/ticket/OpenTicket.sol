@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.4;
 
 import "../interfaces/IOT001Standar.sol";
 import "../model/OpenTicketModel.sol";
@@ -25,8 +25,8 @@ contract OpenTicket is
     using Validations for OpenTicketModel.OpenTicket;
     using Validations for address;
 
-    function initialize(string memory uri_) external initializer {
-        __ERC1155_init(uri_);
+    function initialize(string calldata uri) external initializer {
+        __ERC1155_init(uri);
         __Ownable_init();
         __UUPSUpgradeable_init();
     }
@@ -38,13 +38,13 @@ contract OpenTicket is
         onlyOwner
     {}
 
-    function create(string memory uri_, uint256 expiresOn)
+    function create(string calldata uri, uint256 expiresOn)
         external
         override
         onlyOwner
     {
         events[eventCounter] = OpenTicketModel.NewAdmissionEvent(
-            uri_,
+            uri,
             expiresOn
         );
         emit eventCreated(msg.sender, eventCounter);
@@ -72,7 +72,10 @@ contract OpenTicket is
         uint256 amount
     ) external payable override {
         events[eventID].isValid();
-        allTickets[eventID][ticketID].canBuy(amount);
+        OpenTicketModel.OpenTicket storage ticket = allTickets[eventID][
+            ticketID
+        ];
+        ticket.canBuy(amount);
         _safeTransferFrom(
             address(owner()),
             msg.sender,
@@ -80,9 +83,7 @@ contract OpenTicket is
             amount,
             "0x00"
         );
-        allTickets[eventID][ticketID].supply =
-            allTickets[eventID][ticketID].supply -
-            amount;
+        ticket.supply = ticket.supply - amount;
         emit ticketBought(msg.sender, eventID, ticketID, amount);
     }
 

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.4;
 
 import "../model/OpenTicketModel.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol";
@@ -23,10 +23,7 @@ interface IOT001Standar is IERC1155Upgradeable {
     /**
      * @dev Emmited when owner create a new admission event.
      */
-    event eventCreated(
-        address creator,
-        uint256 eventID
-    );
+    event eventCreated(address creator, uint256 eventID);
 
     /**
      * @dev supply Allows to create a tickets supply specific event
@@ -82,8 +79,5 @@ interface IOT001Standar is IERC1155Upgradeable {
     /**
      * @dev Emmited when owner withdraw from contract.
      */
-    event withdrawSuccessful(
-        address destination,
-        uint256 value
-    );
+    event withdrawSuccessful(address destination, uint256 value);
 }

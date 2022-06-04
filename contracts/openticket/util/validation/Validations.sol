@@ -1,17 +1,17 @@
 //SPDX-License-Identifier: GPL-3.0
 
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.4;
 
 import "../../model/OpenTicketModel.sol";
 
 library Validations {
-    function isValid(OpenTicketModel.AdmissionEvent memory admissionEvent)
+    function isValid(OpenTicketModel.AdmissionEvent storage admissionEvent)
         internal
-        pure
+        view
         validEvent(admissionEvent)
     {}
 
-    function canBuy(OpenTicketModel.OpenTicket memory ticket, uint256 amount)
+    function canBuy(OpenTicketModel.OpenTicket storage ticket, uint256 amount)
         internal
         validTicket(ticket)
         hasEnoughMoney(ticket, amount)
@@ -20,7 +20,7 @@ library Validations {
 
     function canWithdraw(address account) internal view hasBalance(account) {}
 
-    modifier validTicket(OpenTicketModel.OpenTicket memory ticket) {
+    modifier validTicket(OpenTicketModel.OpenTicket storage ticket) {
         require(ticket.minted, "OT: ticket not minted");
         _;
     }
@@ -36,13 +36,13 @@ library Validations {
         _;
     }
 
-    modifier validEvent(OpenTicketModel.AdmissionEvent memory admissionEvent) {
+    modifier validEvent(OpenTicketModel.AdmissionEvent storage admissionEvent) {
         require(admissionEvent.created, "OT: invalid event");
         _;
     }
 
     modifier hasEnoughSupply(
-        OpenTicketModel.OpenTicket memory ticket,
+        OpenTicketModel.OpenTicket storage ticket,
         uint256 amount
     ) {
         require(amount <= ticket.supply, "OT: not enough supply");
