@@ -5,11 +5,6 @@ describe("Upgradeable Open Ticket tests: Deploy and Mint", function () {
     let deployer;
     let proxy;
     let OpenTicket;
-    let openTicketModel;
-    let validations;
-    let contractFactory;
-    let openTicketContract;
-    let ID;
     const uri_ = "https://github.com/braejan/evm-open-tickets/{id}";
 
     before(async function () {
