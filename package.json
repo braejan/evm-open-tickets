@@ -4,7 +4,9 @@
   "description": "Open EVM smart contract to create a simple event and sell tickets.",
   "main": "index.js",
   "scripts": {
-    "test": "hardhat test"
+    "test": "hardhat test",
+    "prettier": "prettier --write 'contracts/**/*.sol'",
+    "coverage": "hardhat coverage --testfiles 'test/**/*.test.js'"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,8 @@
     "ethereum-waffle": "^3.4.4",
     "ethers": "^5.6.8",
     "hardhat": "^2.9.5",
+    "prettier": "^2.6.2",
+    "prettier-plugin-solidity": "^1.0.0-beta.19",
     "solidity-coverage": "^0.7.21"
   },
   "dependencies": {

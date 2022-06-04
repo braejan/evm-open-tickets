@@ -23,10 +23,7 @@ interface IOT001Standar is IERC1155Upgradeable {
     /**
      * @dev Emmited when owner create a new admission event.
      */
-    event eventCreated(
-        address creator,
-        uint256 eventID
-    );
+    event eventCreated(address creator, uint256 eventID);
 
     /**
      * @dev supply Allows to create a tickets supply specific event
@@ -82,8 +79,5 @@ interface IOT001Standar is IERC1155Upgradeable {
     /**
      * @dev Emmited when owner withdraw from contract.
      */
-    event withdrawSuccessful(
-        address destination,
-        uint256 value
-    );
+    event withdrawSuccessful(address destination, uint256 value);
 }

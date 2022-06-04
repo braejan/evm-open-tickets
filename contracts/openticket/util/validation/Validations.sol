@@ -5,7 +5,7 @@ pragma solidity ^0.8.14;
 import "../../model/OpenTicketModel.sol";
 
 library Validations {
-    function isValid(OpenTicketModel.AdmissionEvent memory admissionEvent)
+    function isValid(OpenTicketModel.AdmissionEvent storage admissionEvent)
         internal
         pure
         validEvent(admissionEvent)
