@@ -14,15 +14,18 @@
 ### Running tests
  * Be sure you have [npm](https://www.npmjs.com/package/npm) installed.
 
-#### Run tests
+#### Install dependencies:
 ```console
 $ npm install --save-dev
-$ npx hardhat test
+```
+
+#### Run tests
+```console
+$ npm run test
 ```
 #### Run tests with coverage
 ```console
-$ npm install --save-dev
-$ npx hardhat coverage --testfiles "tests/*.test.js"
+$ npm run coverage
 ```
 
 ## License
