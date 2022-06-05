@@ -1,4 +1,12 @@
-
+<div align="center">
+  <p>
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/braejan/open-ticket-celo-ui?color=%2304D361">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/braejan/open-ticket-celo-ui">
+  <a href="https://github.com/braejan/open-ticket-celo-ui/commits/main">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/braejan/open-ticket-celo-ui">
+  </a>
+  </p>
+</div>
 ## Open Ticket for Ethereum Virtual Machine
 
 **A Smart contract based on Ethereum Virtual Machine** for easy create custom events and sell tickets totally configurable.
