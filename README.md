@@ -5,8 +5,10 @@
   <a href="https://github.com/braejan/open-ticket-celo-ui/commits/main">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/braejan/evm-open-tickets">
   </a>
+  <img alt="GitHub" src="https://img.shields.io/github/license/braejan/evm-open-tickets?label=License">
   </p>
 </div>
+
 ## Open Ticket for Ethereum Virtual Machine
 
 **A Smart contract based on Ethereum Virtual Machine** for easy create custom events and sell tickets totally configurable.
@@ -38,4 +40,4 @@ $ npm run coverage
 
 ## License
 
-OpenTickets for ethereum virtual machine is released under the [GLP-3.0](LICENSE) License.
+OpenTickets for ethereum virtual machine is released under the ![GitHub](https://img.shields.io/github/license/braejan/evm-open-tickets?label=License).

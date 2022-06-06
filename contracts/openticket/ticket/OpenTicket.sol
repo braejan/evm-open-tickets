@@ -90,8 +90,8 @@ contract OpenTicket is
     function withdraw() external payable override onlyOwner {
         address(this).canWithdraw();
         uint256 total = address(this).balance;
-        bool sent = payable(owner()).send(total);
+        (bool sent, ) = payable(msg.sender).call{value: total}("");
         require(sent, "OT: withdraw error");
-        emit withdrawSuccessful(owner(), total);
+        emit withdrawSuccessful(msg.sender, total);
     }
 }
