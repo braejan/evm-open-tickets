@@ -1,42 +1,15 @@
 {
-  "name": "evm-open-tickets",
-  "version": "1.0.0",
-  "description": "Open EVM smart contract to create a simple event and sell tickets.",
-  "main": "index.js",
-  "scripts": {
-    "test": "hardhat test",
-    "prettier": "prettier --write 'contracts/**/*.sol'",
-    "coverage": "hardhat coverage --testfiles 'test/**/*.test.js'",
-    "deploy-celo": "hardhat run scripts/deploy.celo.js --network alfajores"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/braejan/evm-open-tickets.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/braejan/evm-open-tickets/issues"
-  },
-  "homepage": "https://github.com/braejan/evm-open-tickets#readme",
   "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
-    "@nomiclabs/hardhat-waffle": "^2.0.3",
-    "@openzeppelin/contracts": "^4.6.0",
-    "@openzeppelin/hardhat-upgrades": "^1.17.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.4",
+    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.1.1",
+    "@openzeppelin/contracts-upgradeable": "^4.7.3",
+    "@openzeppelin/hardhat-upgrades": "^1.20.0",
     "chai": "^4.3.6",
-    "dotenv": "^16.0.1",
-    "ethereum-waffle": "^3.4.4",
-    "ethers": "^5.6.8",
-    "hardhat": "^2.9.5",
-    "hardhat-deploy": "^0.11.10",
-    "prettier": "^2.6.2",
-    "prettier-plugin-solidity": "^1.0.0-beta.19",
+    "ethers": "^5.7.0",
+    "hardhat": "^2.10.2",
+    "hardhat-ethers": "^1.0.1",
+    "hardhat-upgrades": "^0.0.0",
     "solidity-coverage": "^0.7.21"
-  },
-  "dependencies": {
-    "@openzeppelin/contracts": "^4.6.0",
-    "@openzeppelin/contracts-upgradeable": "^4.6.0"
   }
 }
