@@ -1,2 +1,2 @@
 customTools=["/extra-tools/closure-compiler.sh"]
-
+disableTools=["jshint"]
